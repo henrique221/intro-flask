@@ -1,0 +1,9 @@
+version: '2'
+
+services:
+  intro-flask:
+    build: .
+    volumes:
+      - ./.:/usr/src/app
+    ports:
+      - 80:5000
