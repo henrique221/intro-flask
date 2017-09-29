@@ -19,3 +19,4 @@ def cadastro():
 
 
 #Inicialmente não vamos nos preocupar com segurança, csrf ou login, mas nos próximos capítulos desta série iremos evoluir este pequeno app.
+#http://pythonclub.com.br/what-the-flask-pt-1-introducao-ao-desenvolvimento-web-com-python.html#o_que_e_flask
