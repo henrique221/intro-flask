@@ -1,20 +1,32 @@
 {% extends "layout.html" %}
 {% set cadastro = 'active' %}
 
-{% block content %}
+{% block head %}
 {{super()}}
-<form method="post" action="{{ url_for('cadastro') }}" enctype="multipart/form-data">
-   <label>Titulo:<br />
-        <input type="text" name="titulo" id="titulo" />
-   </label>
-   <br />
-   <label>Texto:<br />
-        <textarea name="texto" id="texto"></textarea>
-   </label>
-   <br />
-   <label> Imagem:<br />
-      <input type="file" name="imagem" id="imagem" />
-   </label>
-   <input type="submit" value="Postar" />
-</form>
+
+<link rel="stylesheet" href="/assets/css/cadastro.css">
+{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid">
+    <form method="post" action="{{ url_for('cadastro') }}" enctype="multipart/form-data">
+        <div class="form-group">
+            <label class="form-control-label" for="formGroupExampleInput">Titulo: </label>
+            <input type="text" class="form-control mb-2 mb-sm-0" name="titulo" id="titulo" required/>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="formGroupExampleInput2">Texto: </label>
+            <textarea class="form-control" rows="3" name="texto" id="texto" required></textarea>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="formGroupExampleInput3">Imagem: </label>
+            <input type="file" class="form-control-file" name="imagem" id="imagem" required/>
+        </div>
+
+        <br/>
+
+        <input type="submit" class="form-control btn btn-outline-primary" value="Postar"/>
+    </form>
+</div>
 {% endblock %}
