@@ -1,0 +1,17 @@
+.col-sm-4 {
+    margin-bottom: 15px;
+}
+
+.container-fluid {
+    margin: auto;
+    width: 90%;
+}
+
+.card {
+    width: 20rem;
+    height: 30rem;
+}
+
+.title {
+    margin-bottom: 25px;
+}

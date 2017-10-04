@@ -1,0 +1,8 @@
+.container-fluid {
+    margin: auto;
+    width: 90%;
+}
+
+.btn {
+    cursor: pointer;
+}
