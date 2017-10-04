@@ -6,7 +6,7 @@ from db import noticias
 import os
 
 
-app = Flask("intro-flask", static_folder='assets')
+app = Flask(__name__, static_folder='assets')
 PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
 app.config['MEDIA_ROOT'] = os.path.join(PROJECT_ROOT, 'media_files')
 
@@ -33,6 +33,15 @@ def cadastro():
     return render_template(
         'cadastro.html',
         title=u"Inserir nova noticia"
+    )
+
+@app.route('/noticias/remover/<int:noticia_id>')
+def remover(noticia_id):
+    noticia = noticias.delete(id=noticia_id)
+
+    return render_template(
+        'noticia_removida.html',
+        noticia_id=noticia_id
     )
 
 @app.route("/")
