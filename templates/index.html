@@ -1,12 +1,18 @@
 {% extends "layout.html" %}
 {% set index = 'active' %}
 
+{% block head %}
+{{super()}}
+
+<link rel="stylesheet" href="/assets/css/index.css">
+{% endblock %}
+
 {% block content %}
-    <h1>Lista de Notícias</h1>
-    <div class="row">
+    <h1 class="title">Lista de Notícias</h1>
+    <div class="container-fluid row">
         {% for noticia in noticias %}
-            <div class="col-sm-3">
-                <div class="card" style="width: 20rem;">
+            <div class="col-sm-4">
+                <div class="card">
                     {% if noticia.imagem %}
                         <img class="card-img-top" src="{{ url_for('media', filename=noticia.imagem) }}" alt="Imagem da notícia" height="200px">
                     {% endif %}
@@ -14,6 +20,9 @@
                         <h4 class="card-title">{{noticia.titulo}}</h4>
                         <p class="card-text">{{noticia.texto}}</p>
                         <a href="{{ url_for('noticia', noticia_id=noticia.id) }}" class="btn btn-primary">Ver notícia</a>
+                        <a href="{{ url_for('remover', noticia_id=noticia.id) }}" class="btn btn-danger">
+                            <i class="fa fa-trash" aria-hidden="true"></i>
+                        </a>
                     </div>
                 </div>
             </div>
