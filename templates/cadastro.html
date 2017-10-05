@@ -5,28 +5,49 @@
 {{super()}}
 
 <link rel="stylesheet" href="/assets/css/cadastro.css">
+
 {% endblock %}
 
 {% block content %}
 
 <div class="container-fluid">
-    <form method="post" action="{{ url_for('cadastro') }}" enctype="multipart/form-data">
+    <form method="post" action="{{ url_for('cadastrar') }}" enctype="multipart/form-data" id="form">
         <div class="form-group">
             <label class="form-control-label" for="formGroupExampleInput">Titulo: </label>
-            <input type="text" class="form-control mb-2 mb-sm-0" name="titulo" id="titulo" required/>
+            <input type="text" class="form-control mb-2 mb-sm-0" name="titulo" id="titulo"/>
         </div>
         <div class="form-group">
             <label class="form-control-label" for="formGroupExampleInput2">Texto: </label>
-            <textarea class="form-control" rows="3" name="texto" id="texto" required></textarea>
+            <textarea class="form-control" rows="3" name="texto" id="texto"></textarea>
         </div>
         <div class="form-group">
             <label class="form-control-label" for="formGroupExampleInput3">Imagem: </label>
-            <input type="file" class="form-control-file" name="imagem" id="imagem" required/>
+            <input type="file" class="form-control-file" name="imagem" id="imagem"/>
         </div>
 
         <br/>
 
-        <input type="submit" class="form-control btn btn-outline-primary" value="Postar"/>
+        <a href="#" class="btn btn-outline-primary" onclick="validaForm()" id="enviar"/>Postar</a>
     </form>
+
+    {% with title="Campos vazios", mensagem="Preencha todos os campos!", botao="Ok" %}
+        {% include 'components/modal_alerta.html' %}
+    {% endwith %}
+
 </div>
+
+{% endblock %}
+
+{% block scripts %}
+
+    <script>
+        function validaForm() {
+            if ($('#titulo').val() == "" || $('#texto').val() == "") {
+                $("#exampleModal").modal();
+            } else {
+                $('form').submit();
+            }
+        }
+    </script>
+
 {% endblock %}
