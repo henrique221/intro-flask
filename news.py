@@ -11,8 +11,8 @@ PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
 app.config['MEDIA_ROOT'] = os.path.join(PROJECT_ROOT, 'media_files')
 
 
-@app.route("/noticias/cadastro/", methods=["GET", "POST"])
-def cadastro():
+@app.route("/noticias/cadastrar/", methods=["GET", "POST"])
+def cadastrar():
     if request.method == "POST":
 
         dados_do_form = request.form.to_dict()
