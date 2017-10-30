@@ -5,7 +5,11 @@
 {% endblock %}
 
 {% block content %}
-    <div class="alert alert-danger" role="alert">
-        Noticia {{noticia_id}} removida com sucesso
+    <div class="cointainer">
+        <div class="alert alert-danger" role="alert">
+            Noticia {{noticia_id}} removida com sucesso
+        </div>
+
+        <a href="{{ url_for('index') }}" class="btn btn-secondary">Voltar para Home</a>
     </div>
 {% endblock %}
