@@ -4,29 +4,47 @@
 {% block head %}
 {{super()}}
 
-<link rel="stylesheet" href="/assets/css/index.css">
+<link rel="stylesheet" href="/assets/css/index/index.css">
 {% endblock %}
 
 {% block content %}
     <h1 class="title">Lista de Notícias</h1>
+
     <div class="container-fluid row">
-        {% for noticia in noticias %}
-            <div class="col-sm-4">
+        {% for noticia in itens %}
+            <div class="col-lg-4">
                 <div class="card">
                     {% if noticia.imagem %}
                         <img class="card-img-top" src="{{ url_for('media', filename=noticia.imagem) }}" alt="Imagem da notícia" height="200px">
+                    {% else %}
+                        <img class="card-img-top" src="{{ url_for('static', filename='images/default.jpg') }}" alt="Imagem da notícia" height="200px">
                     {% endif %}
                     <div class="card-body">
                         <h4 class="card-title">{{noticia.titulo}}</h4>
                         <p class="card-text">{{noticia.texto}}</p>
                         <a href="{{ url_for('noticia', noticia_id=noticia.id) }}" class="btn btn-primary">Ver notícia</a>
-                        <a href="{{ url_for('remover', noticia_id=noticia.id) }}" class="btn btn-danger">
+                        <a href="#" class="btn btn-danger" id="{{noticia.id}}" onclick="openModal(this.id)">
                             <i class="fa fa-trash" aria-hidden="true"></i>
                         </a>
                     </div>
                 </div>
             </div>
+            {% with noticia_id=noticia.id, title="Confirmação de exclusão", mensagem="Apagar notícia ID " + noticia.id|string + "?", botao_gray="Cancelar", botao_red="Excluir",url=url_for('remover', noticia_id=noticia.id) %}
+                {% include 'components/modal_opcoes.html' %}
+            {% endwith %}
         {% endfor %}
     </div>
+
+    {% include 'components/pagination.html' %}
+    
+{% endblock %}
+
+{% block scripts %}
+
+    <script>
+        function openModal(id) {
+            $("#Modal_"+id).modal();
+        }
+    </script>
 
 {% endblock %}
