@@ -46,7 +46,7 @@ def remover(noticia_id):
         noticia_id=noticia_id
     )
 
-@app.route("/noticias")
+@app.route("/noticias/listagem/")
 def index():
     todas_as_noticias = list(noticias.all())
 
