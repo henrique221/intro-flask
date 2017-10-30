@@ -4,7 +4,7 @@
 {% block head %}
 {{super()}}
 
-<link rel="stylesheet" href="/assets/css/cadastro.css">
+<link rel="stylesheet" href="/assets/css/cadastro/cadastro.css">
 
 {% endblock %}
 
@@ -43,7 +43,7 @@
     <script>
         function validaForm() {
             if ($('#titulo').val() == "" || $('#texto').val() == "") {
-                $("#exampleModal").modal();
+                $("#Modal").modal();
             } else {
                 $('form').submit();
             }
