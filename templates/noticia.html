@@ -7,7 +7,9 @@
 {% block content %}
     <h1>{{noticia.titulo}}</h1>
     {% if noticia.imagem %}
-        <img src="{{ url_for('media', filename=noticia.imagem) }}" width="300" />
+        <img src="{{ url_for('media', filename=noticia.imagem) }}" alt="Imagem da notícia" width="300">
+    {% else %}
+        <img src="{{ url_for('static', filename='images/default.jpg') }}" alt="Imagem da notícia" width="300px">
     {% endif %}
     <hr />
     <p>
