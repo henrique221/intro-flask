@@ -51,10 +51,7 @@ def index():
 
     ITENS_POR_PAGINA = 3
 
-    try:
-        pagina = int(request.args.get('page', 1))
-    except:
-        pagina = 1
+    pagina = int(request.args.get('page', 1))
 
     paginator = Paginator(todas_as_noticias, ITENS_POR_PAGINA)
 
@@ -62,8 +59,10 @@ def index():
         lista_noticias = paginator.page(pagina)
     except PageNotAnInteger:
         lista_noticias = paginator.page(1)
+        pagina = 1
     except EmptyPage:
-        lista_noticias = paginator.page(1)
+        lista_noticias = paginator.page(5)
+        pagina = 5
 
     return render_template(
         'index.html',
