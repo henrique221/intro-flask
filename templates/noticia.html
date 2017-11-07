@@ -11,6 +11,7 @@
     {% else %}
         <img src="{{ url_for('static', filename='images/default.jpg') }}" alt="Imagem da notícia" width="300px">
     {% endif %}
+    <p>Publicada em: {{noticia.data}}</p>
     <hr />
     <p>
         {{noticia.texto}}
