@@ -3,13 +3,17 @@
 from werkzeug import secure_filename
 from flask import Flask, request, url_for, current_app, send_from_directory, render_template
 from db import noticias
-import os
+from repository import NoticiaRespository
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from datetime import datetime
+from helpers.transform_date import TransformDate
+import os
 
 
 app = Flask(__name__, static_folder='assets')
 PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
 app.config['MEDIA_ROOT'] = os.path.join(PROJECT_ROOT, 'media_files')
+date_helper = TransformDate()
 
 
 @app.route("/noticias/cadastrar/", methods=["GET", "POST"])
@@ -25,7 +29,11 @@ def cadastrar():
             imagem.save(path)
             dados_do_form['imagem'] = filename
 
-        id_nova_noticia = noticias.insert(dados_do_form)
+        dados_do_form['data'] = datetime.now()
+
+        repository = NoticiaRespository()
+
+        id_nova_noticia = repository.add(dados_do_form)
         return render_template(
             'cadastro_sucesso.html',
             id_nova_noticia=id_nova_noticia
@@ -51,7 +59,10 @@ def index():
 
     ITENS_POR_PAGINA = 3
 
-    pagina = int(request.args.get('page', 1))
+    try:
+        pagina = int(request.args.get('page', 1))
+    except:
+        pagina = 1
 
     paginator = Paginator(todas_as_noticias, ITENS_POR_PAGINA)
 
@@ -75,6 +86,7 @@ def index():
 @app.route("/noticia/visualizar/<int:noticia_id>")
 def noticia(noticia_id):
     noticia = noticias.find_one(id=noticia_id)
+    noticia['data'] = date_helper.transform_date_to_br(noticia['data'])
 
     return render_template(
         'noticia.html',
