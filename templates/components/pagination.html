@@ -1,13 +1,19 @@
 <div class="container-fluid row justify-content-center">
-    {% if itens.has_other_pages %}
+    {% if paginator.num_pages > 1 %}
         <ul class="pagination">
-            {% if itens.has_previous %}
+            {% if page-1 > 0 %}
+                {% if page <= paginator.num_pages %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page-1 }}">&laquo;</a>
+                    </li>
+                {% else %}
                 <li class="page-item">
-                    <a class="page-link" href="?page={{ itens.previous_page_number }}">&laquo;</a>
+                    <a class="page-link" href="?page={{ paginator.num_pages-1 }}">&laquo;</a>
                 </li>
+                {% endif %}
             {% else %}
                 <li class="page-item disabled">
-                    <span>&laquo;</span>
+                    <span class="page-link">&laquo;</span>
                 </li>
             {% endif %}
 
@@ -23,13 +29,13 @@
                 {% endif %}
             {% endfor %}
 
-            {% if itens.has_next %}
+            {% if page+1 <= paginator.num_pages and page > 0 %}
                 <li class="page-item">
-                    <a class="page-link" href="?page={{ itens.next_page_number }}">&raquo;</a>
+                    <a class="page-link" href="?page={{ page+1 }}">&raquo;</a>
                 </li>
             {% else %}
                 <li class="page-item disabled">
-                    <span>&raquo;</span>
+                    <span class="page-link">&raquo;</span>
                 </li>
             {% endif %}
         </ul>

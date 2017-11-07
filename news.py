@@ -4,7 +4,6 @@ from werkzeug import secure_filename
 from flask import Flask, request, url_for, current_app, send_from_directory, render_template
 from db import noticias
 import os
-#from django.contrib.auth.models import User
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
@@ -50,22 +49,28 @@ def remover(noticia_id):
 def index():
     todas_as_noticias = list(noticias.all())
 
-    PER_PAGE = 12
+    ITENS_POR_PAGINA = 3
 
-    page = request.args.get('page', 1)
-
-    paginator = Paginator(todas_as_noticias, PER_PAGE)
     try:
-        lista_noticias = paginator.page(page)
+        pagina = int(request.args.get('page', 1))
+    except:
+        pagina = 1
+
+    paginator = Paginator(todas_as_noticias, ITENS_POR_PAGINA)
+
+    try:
+        lista_noticias = paginator.page(pagina)
     except PageNotAnInteger:
         lista_noticias = paginator.page(1)
     except EmptyPage:
-        lista_noticias = paginator.page(paginator.num_pages)
+        lista_noticias = paginator.page(1)
 
     return render_template(
         'index.html',
         itens=lista_noticias,
         title=u"Todas as notícias",
+        page=pagina,
+        paginator=paginator
     )
 
 @app.route("/noticia/visualizar/<int:noticia_id>")
