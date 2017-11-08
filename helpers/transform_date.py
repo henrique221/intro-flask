@@ -2,5 +2,6 @@ from datetime import datetime
 
 class TransformDate:
 
-    def transform_date_to_br(self, date):
+    @staticmethod
+    def transform_date_to_br(date):
         return date.strftime("%d/%m/%y %H:%M")

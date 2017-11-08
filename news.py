@@ -13,7 +13,6 @@ import os
 app = Flask(__name__, static_folder='assets')
 PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
 app.config['MEDIA_ROOT'] = os.path.join(PROJECT_ROOT, 'media_files')
-date_helper = TransformDate()
 
 
 @app.route("/noticias/cadastrar/", methods=["GET", "POST"])
@@ -86,7 +85,7 @@ def index():
 @app.route("/noticia/visualizar/<int:noticia_id>")
 def noticia(noticia_id):
     noticia = noticias.find_one(id=noticia_id)
-    noticia['data'] = date_helper.transform_date_to_br(noticia['data'])
+    noticia['data'] = TransformDate.transform_date_to_br(noticia['data'])
 
     return render_template(
         'noticia.html',
